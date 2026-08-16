@@ -1,4 +1,3 @@
-import { AnyCaaRecord } from 'node:dns';
 import { OrderService } from './services/orderService';
 
 async function main() {

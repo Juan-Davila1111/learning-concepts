@@ -1,30 +1,38 @@
 import { ChannelModel, ConfirmChannel, connect } from "amqplib";
 
 export class RabbitMqMessageConsumer {
-  private connecction: ChannelModel;
+  private connection: ChannelModel;
   private channel: ConfirmChannel;
 
   constructor() {
+    this.connection = null;
     this.channel = null;
-    this.connecction = null;
   }
 
   public async connect(): Promise<void> {
-    this.connecction = await connect("amqp://localhost");
-    this.channel = await this.connecction.createConfirmChannel();
+    this.connection = await connect("amqp://localhost");
+    this.channel = await this.connection.createConfirmChannel();
   }
 
   public async consume(
     queue: string,
-    callback: (message: any) => void,
+    callback: (message: any) => void
   ): Promise<void> {
     await this.channel.assertQueue(queue, { durable: true });
 
     this.channel.consume(queue, (msg) => {
       if (msg !== null) {
-        const content = JSON.parse(msg.content.toString());
-        callback(content);
-        this.channel.ack(msg);
+        const rawMessage = msg.content.toString();
+
+        try {
+          const content = JSON.parse(rawMessage);
+
+          callback(content);
+
+          this.channel.ack(msg);
+        } catch (error) {
+          this.channel.nack(msg, false, false);
+        }
       }
     });
   }
