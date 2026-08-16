@@ -10,7 +10,7 @@ const start = async () => {
     await consumer.connect()
 
     consumer.consume('order_queue', (data) => {
-        console.log('[Email Service] enviendo conrreo para la orden: ')
+        console.log('[Email Service] enviendo correo para la orden: ')
         console.log(data)
     })
 }
