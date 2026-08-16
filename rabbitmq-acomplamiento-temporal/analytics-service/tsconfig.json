@@ -1,0 +1,61 @@
+{
+  "compilerOptions": {
+    // Versión de JavaScript a la que TypeScript va a compilar.
+    // ES2020 permite usar características modernas de JavaScript.
+    "target": "es2020",
+
+    // Sistema de módulos que utilizará el código compilado.
+    // CommonJS es el formato tradicional de Node.js.
+    "module": "commonjs",
+
+    // Librerías/API de JavaScript que TypeScript debe conocer.
+    // Aquí le indicamos que puede utilizar las funcionalidades de ES2020.
+    "lib": ["ES2020"],
+
+    // Carpeta donde TypeScript colocará los archivos .js generados.
+    // src/index.ts → dist/index.js
+    "outDir": "./dist",
+
+    // Carpeta donde se encuentra nuestro código fuente TypeScript.
+    // En este proyecto será ./src
+    "rootDir": "./src",
+
+    // Activa comprobaciones estrictas de TypeScript.
+    // Ayuda a detectar errores de tipos y posibles problemas antes
+    // de ejecutar el programa.
+    "strict": true,
+
+    // Permite utilizar imports como:
+    // import express from "express";
+    //
+    // aunque Express utilice internamente un formato compatible
+    // con CommonJS.
+    "esModuleInterop": true,
+
+    // No comprueba los archivos de declaración (.d.ts) de las
+    // dependencias externas.
+    // Esto hace que la compilación sea más rápida y evita errores
+    // provenientes de tipos de terceros.
+    "skipLibCheck": true,
+
+    // Obliga a que las mayúsculas/minúsculas de los nombres de archivos
+    // sean consistentes.
+    //
+    // Por ejemplo:
+    // import User from "./User";
+    //
+    // no podrá apuntar accidentalmente a "./user" en sistemas donde
+    // las mayúsculas y minúsculas importan.
+    "forceConsistentCasingInFileNames": true
+  },
+
+  // Le dice a TypeScript qué archivos debe incluir en la compilación.
+  // Aquí incluye todos los archivos dentro de src.
+  "include": ["src/*"],
+
+  // Le dice a TypeScript qué carpetas debe ignorar.
+  //
+  // node_modules → dependencias instaladas con npm
+  // dist        → archivos JavaScript generados por TypeScript
+  "exclude": ["node_modules", "dist"]
+}
